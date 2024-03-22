@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Ride, Schedule
 from .forms import RideForm
+<<<<<<< HEAD
+=======
+from django.urls import path
+
+>>>>>>> b2ab025ca4cd55cc892b807ae80b5747b8d08200
 
 @login_required
 def profile(request):
