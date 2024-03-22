@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Ride, Schedule
 from .forms import RideForm
 from django.urls import path
-from . import views
+
 
 @login_required
 def profile(request):
