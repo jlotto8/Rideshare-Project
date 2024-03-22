@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-#from . import views
+from Rideshare_App import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # path('join_ride/<int:ride_id>/', views.join_ride, name='join_ride'),
-    # path('profile/', views.profile, name='profile'),
+    path('join_ride/<int:ride_id>/', views.join_ride, name='join_ride'),
+    path('profile/', views.profile, name='profile'),
 ]
