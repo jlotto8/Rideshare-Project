@@ -124,10 +124,6 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-<<<<<<< HEAD
-AUTH_USER_MODEL = 'Rideshare_App.CustomUser'
-=======
 # Override the default django Auth User
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#auth-custom-user
 AUTH_USER_MODEL = 'Rideshare_App.CustomUser'
->>>>>>> b2ab025ca4cd55cc892b807ae80b5747b8d08200
