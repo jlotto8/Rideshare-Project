@@ -1,23 +1,39 @@
 from django.db import models
-from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
-# CustomUser model
-class CustomUser(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
-    address = models.CharField(max_length=255, blank=True, null=True)
+class CustomUser(AbstractUser):
+    bio = models.TextField(max_length=500, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True)
 
-# Ride model
+    def __str__(self):
+        return self.username
+
 class Ride(models.Model):
-    driver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='rides_as_driver')
-    passengers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='rides_as_passenger', blank=True)
-    start_location = models.CharField(max_length=255)
-    end_location = models.CharField(max_length=255)
+    driver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='rides_driven')
+    passengers = models.ManyToManyField(CustomUser, related_name='rides_taken')
+    origin = models.CharField(max_length=255)
+    destination = models.CharField(max_length=255)
     departure_time = models.DateTimeField()
-    seats_available = models.PositiveIntegerField()
+    available_seats = models.PositiveIntegerField()
 
-# Schedule model
+    def __str__(self):
+        return f"{self.origin} to {self.destination} at {self.departure_time}"
+
+class Post(models.Model):
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='posts')
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
 class Schedule(models.Model):
-    ride = models.ForeignKey(Ride, on_delete=models.CASCADE)
+    ride = models.ForeignKey(Ride, on_delete=models.CASCADE, related_name='schedules')
     day_of_week = models.CharField(max_length=10)
     # Add more fields like start time, end time, etc.
+
+    def __str__(self):
+        return f"{self.ride.origin} to {self.ride.destination} on {self.day_of_week}"

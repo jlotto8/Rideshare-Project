@@ -14,12 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
-from Rideshare_App import views
+from django.urls import path, include
+from django.contrib import admin
 
 urlpatterns = [
-    path('', views.index, name='index'),  # URL pattern for the index view
-    path('about/', views.about, name='about'),  # URL pattern for the about view
-    path('contact/', views.contact, name='contact'),  # URL pattern for the contact view
-    # Add more URL patterns as needed for other views or functionalities
+    path('admin/', admin.site.urls),
+    path('', include('Rideshare_App.urls')),  # Include your app's URLs
+    # path('accounts/', include('django.contrib.auth.urls')),  # Include Django's authentication URLs
 ]
+
