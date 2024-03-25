@@ -11,10 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -27,10 +25,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -38,6 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "Rideshare_App",
+    # 'Rideshare_App.apps.RideshareAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -54,15 +53,18 @@ ROOT_URLCONF = "rideshare.urls"
 
 TEMPLATES = [
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # Add the path to your templates directory here if needed
+            BASE_DIR / 'templates',
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
@@ -80,7 +82,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -116,7 +117,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
@@ -124,10 +125,31 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-<<<<<<< HEAD
+# AUTH_USER_MODEL = 'Rideshare_App.CustomUser'
 AUTH_USER_MODEL = 'Rideshare_App.CustomUser'
-=======
+# AUTH_USER_MODEL = 'Rideshare_App.CustomUserManager'
 # Override the default django Auth User
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#auth-custom-user
-AUTH_USER_MODEL = 'Rideshare_App.CustomUser'
->>>>>>> b2ab025ca4cd55cc892b807ae80b5747b8d08200
+
+LOGIN_REDIRECT_URL = '/profile/'  # Redirect to profile page after login
+LOGIN_URL = '/accounts/login/'  # Specify the login URL
+
+
+# from django.contrib import admin
+# from django.contrib.auth.admin import UserAdmin
+# from django.contrib.auth.models import User
+
+# from .models import CustomUser
+
+# # Unregister the CustomUser model if it's already registered
+# if admin.site.is_registered(CustomUser):
+#     admin.site.unregister(CustomUser)
+
+# # Register the CustomUser model with your CustomUserAdmin
+# class CustomUserAdmin(UserAdmin):
+#     model = CustomUser
+#     filter_horizontal = []
+#     list_display = ['username', 'email', 'first_name', 'last_name', 'is_staff']
+#     list_filter = ['is_staff', 'is_superuser']
+
+# admin.site.register(CustomUser, CustomUserAdmin)
